@@ -1,2 +1,10 @@
 image:
   file: .gitpod.Dockerfile
+
+tasks:
+  - name: Start web server
+    init: python -m http.server 8000
+
+ports:
+  - port: 8000
+    onOpen: open-preview
