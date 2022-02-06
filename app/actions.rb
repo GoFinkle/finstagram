@@ -11,6 +11,11 @@ get '/' do
         "sharky_j: Out for the long weekend... too embarassed to show y'all the beach bod!"
     ]
 
+    if time_ago_in_minutes > 60
+        "more than an hour"
+    else
+        "less than an hour"
+    end
 
 end
 
