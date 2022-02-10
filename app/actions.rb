@@ -28,7 +28,7 @@ get '/' do
         photo_url: "http://naserca.com/images/whale.jpg",
         humanized_time_ago: humanized_time_ago(65),
         like_count: 0,
-        comment_count:1,
+        comment_count: 1,
         comments: [{
             username:"kirk_whalum",
             text: "#weekendvibes"
@@ -46,14 +46,18 @@ get '/' do
             username: "marlin_peppa",
             text: "lunchtime! ;)"
         }]
-    [finstagram_post_shark, finstagarm_post_whale, finstagram_post_marlin].to_s
     }
+
+    [finstagram_post_shark, finstagram_post_whale, finstagram_post_marlin].to_s
     
+    erb(:index)
+
 end
     #humanized_time_ago(finstagram_post[:time_ago_in_minutes])
     #finstagram_post.to_s
 
 
+    
     #if time_ago_in_minutes >= 60
     #    "#{time_ago_in_minutes / 60} hours ago"      
     #else
