@@ -22,3 +22,21 @@ get '/signup' do     # if a user navigates to the path "/signup",
       erb(:signup)
     end
   end
+
+  get '/login' do    # when a GET request comes into /login
+    erb(:login)      # render app/views/login.erb
+  end
+
+  post '/login' do    # when we submit a form with an action of /login
+    username = params[:username]
+    password = params[:password]
+
+    # 1. find user by username
+    user = User.find_by(username: username)
+
+    if user && user.password == password
+      "Success!"
+    else
+      "Login failed."
+    end
+  end
