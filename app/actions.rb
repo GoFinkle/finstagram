@@ -1,7 +1,13 @@
-get '/' do
-    @finstagram_posts = FinstagramPost.order(created_at: :desc)
-    erb(:index)
+helpers do
+  def current_user
+    User.find_by(id: session[:user_id])
   end
+end
+
+get '/' do
+  @finstagram_posts = FinstagramPost.order(created_at: :desc)
+  erb(:index)
+end
 
 get '/signup' do     # if a user navigates to the path "/signup",
     @user = User.new   # setup empty @user object
@@ -17,7 +23,7 @@ get '/signup' do     # if a user navigates to the path "/signup",
     @user = User.new({ email: email, avatar_url: avatar_url, username: username, password: password })
   
     if @user.save
-      "User #{username} saved!"
+      redirect to('/login')
     else
       erb(:signup)
     end
@@ -31,11 +37,11 @@ get '/signup' do     # if a user navigates to the path "/signup",
     username = params[:username]
     password = params[:password]
   
-    @user = User.find_by(username: username)
+    user = User.find_by(username: username)  
   
-    if @user && @user.password == password
-      session[:user_id] = @user.id
-      "Success! User with id #{session[:user_id]} is logged in!"
+    if user && user.password == password
+      session[:user_id] = user.id
+      redirect to('/')
     else
       @error_message = "Login failed."
       erb(:login)
@@ -44,5 +50,5 @@ get '/signup' do     # if a user navigates to the path "/signup",
 
   get '/logout' do
     session[:user_id] = nil
-    "Logout successful!"
+    redirect to('/')
   end
