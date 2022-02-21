@@ -1,8 +1,12 @@
 class FinstagramPost < ActiveRecord::Base
 
+    # (this is where your associations are, e.g. has_many :finstagram_posts, etc.)...
     belongs_to :user
     has_many :comments
     has_many :likes
+
+    # validations in between association definitions and methods!
+    validates :photo_url, :user, presence: true
 
     validates_presence_of :user
 
@@ -25,8 +29,5 @@ class FinstagramPost < ActiveRecord::Base
   def comment_count
     self.comments.size
   end
-  # New Stuff End
-
-
 
 end
