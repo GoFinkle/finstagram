@@ -22,7 +22,7 @@ end
   
     @user = User.new({ email: email, avatar_url: avatar_url, username: username, password: password })
   
-    if @user.save
+  if @user.save
       redirect to('/login')
     else
       erb(:signup)
@@ -39,7 +39,7 @@ end
   
     user = User.find_by(username: username)  
   
-    if user && user.password == password
+  if user && user.password == password
       session[:user_id] = user.id
       redirect to('/')
     else
@@ -87,5 +87,20 @@ end
     comment.save
   
     # `redirect` back to wherever we came from
+    redirect(back)
+  end
+
+  post '/likes' do
+    finstagram_post_id = params[:finstagram_post_id]
+  
+    like = Like.new({ finstagram_post_id: finstagram_post_id, user_id: current_user.id })
+    like.save
+  
+    redirect(back)
+  end
+
+  delete '/likes/:id' do
+    like = Like.find(params[:id])
+    like.destroy
     redirect(back)
   end
